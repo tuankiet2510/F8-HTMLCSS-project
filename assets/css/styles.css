@@ -13,6 +13,11 @@ html {
   font-size: 62.5%; /* 1rem = font-size = 10px */
   font-family: "Poppins", sans-serif;
 }
+html,
+body {
+  /* Mượt hơn khi bấm vào các href trượt đến các phần lq */
+  scroll-behavior: smooth;
+}
 /* === common  === */
 .content {
   width: var(--content-width);
@@ -53,16 +58,37 @@ a {
   overflow: hidden;
 }
 /* === header === */
-.header {
+.hero-wrap {
   background: var(--light-color);
-  height: 100vh;
+  /* height: 100vh; */
+  /* Trừ đi phần navbar 90px ở trên */
+  height: calc(100vh - 90px);
   position: relative;
+  /* Giai quyet van de margin-collapse của hero */
+  display: flex;
+  /* Đảm bảo khi thêm item vào sẽ nằm theo chiều dọc   */
+  flex-direction: column;
+  justify-content: center;
 }
+.fixed-header {
+  background: var(--light-color);
+  padding-top: 26px;
+  /* Sử dụng sticky thay fixed vì sticky linh hoạt hơn , với sticky khi cuộn xuống 1 chút sẽ loại bỏ phần không gian padding-top ở trên */
+
+  position: sticky;
+  top: -26px; /* cuộn xuống -26px thì phần padding sẽ không dính theo nữa */
+  z-index: 1;
+}
+/* Neo navbar */
 .navbar {
   display: flex;
   align-items: center;
   /* margin-top: 50px; LỖI margin-collapse */
-  padding-top: 38px;
+  /* padding-top: 38px; */
+  padding: 12px 0;
+
+  /* position: sticky; */
+  /* Nếu dùng position fixed , sẽ dính cả 1 đoạn ở trên 38px */
 }
 .navbar ul {
   display: flex;
@@ -95,13 +121,11 @@ a {
   border-radius: 8px;
 }
 /* === Hero === */
-.header .hero {
-  margin-top: 130px;
-}
-.hero .info {
+
+.hero-wrap .info {
   width: 51%;
 }
-.hero .sub-title {
+.hero-wrap .sub-title {
   color: #687690;
 
   font-family: Poppins;
@@ -111,7 +135,7 @@ a {
   line-height: normal;
   letter-spacing: 0.018rem;
 }
-.hero .title {
+.hero-wrap .title {
   margin-top: 8px;
   color: #000336;
   font-size: 6.4rem;
@@ -120,7 +144,7 @@ a {
   line-height: 1.1875;
   /* line-height: 76px; 118.75% */
 }
-.hero .desc {
+.hero-wrap .desc {
   color: #5a6473;
   margin-top: 30px;
   font-family: Poppins;
@@ -166,10 +190,21 @@ a {
   margin-top: 24px;
 }
 .clients .images {
-  margin-top: 96px;
+  margin-top: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.clients .images a {
+  padding: 0 42px;
+  /* Set height thay padding top  để đảm bảo cùng kích thước  */
+  display: flex;
+  align-items: center;
+  height: 90px;
+  border-radius: 12px;
+}
+.clients .images a:hover {
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.2);
 }
 /* === Guides === */
 .guides {
@@ -627,6 +662,10 @@ a {
   justify-content: center;
   align-items: center;
   border-radius: 4px;
+  background: #f9f9f9;
+}
+.footer .social .social-link + .social-link {
+  margin-left: 16px;
 }
 .footer .social .social-link:hover {
   background-color: #ebebeb;
